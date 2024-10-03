@@ -1,0 +1,86 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>图片与文字组合并输入密码跳转</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            text-align: center;  
+            margin: 0;  
+            padding: 20px;  
+        }  
+        .container {  
+            margin: 20px auto;  
+            max-width: 800px;  
+            text-align: left;  
+        }  
+        .image-box {  
+            margin-bottom: 20px;  
+            text-align: center;  
+        }  
+        .image-box img {  
+            max-width: 100%;  
+            height: auto;  
+        }  
+        .hidden {  
+            display: none;  
+        }  
+    </style>  
+</head>  
+<body>  
+  
+<div class="container">  
+    <!-- 第一组图片和文字 -->  
+    <div class="image-box">  
+        <a href="#" onclick="return checkPassword('password123', 'https://example.com/page1')">  
+            <img src="https://via.placeholder.com/400x300" alt="图片1">  
+        </a>  
+        <p>这是与图片1相关的文字内容。</p>  
+    </div>  
+  
+    <!-- 第二组图片和文字 -->  
+    <div class="image-box">  
+        <a href="#" onclick="return checkPassword('secret456', 'https://example.com/page2')">  
+            <img src="https://via.placeholder.com/400x300" alt="图片2">  
+        </a>  
+        <p>这是与图片2相关的文字内容。</p>  
+    </div>  
+  
+    <!-- 可以根据需要添加更多组图片和文字 -->  
+  
+</div>  
+  
+<div id="passwordModal" class="hidden">  
+    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;">  
+        <div style="background: white; padding: 20px; border-radius: 10px;">  
+            <h2>请输入密码</h2>  
+            <input type="password" id="passwordInput" placeholder="输入密码">  
+            <button onclick="submitPassword()">提交</button>  
+        </div>  
+    </div>  
+</div>  
+  
+<script>  
+    function checkPassword(correctPassword, targetUrl) {  
+        document.getElementById('passwordModal').classList.remove('hidden');  
+        document.getElementById('passwordInput').value = '';  
+        window.passwordToCheck = correctPassword;  
+        window.targetUrl = targetUrl;  
+        return false; // 阻止默认链接跳转  
+    }  
+  
+    function submitPassword() {  
+        const inputPassword = document.getElementById('passwordInput').value;  
+        if (inputPassword === window.passwordToCheck) {  
+            window.location.href = window.targetUrl;  
+        } else {  
+            alert('密码错误，请重试。');  
+        }  
+        document.getElementById('passwordModal').classList.add('hidden');  
+    }  
+</script>  
+  
+</body>  
+</html>
